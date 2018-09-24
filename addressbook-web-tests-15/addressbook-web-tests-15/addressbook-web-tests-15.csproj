@@ -65,6 +65,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ContactModificationTests.cs" />
+    <Compile Include="ContactRemovalTest.cs" />
+    <Compile Include="GroupModificationTests.cs" />
     <Compile Include="Model\AccountData.cs" />
     <Compile Include="AppManager\ApplicationManager.cs" />
     <Compile Include="Other\Circle.cs" />
