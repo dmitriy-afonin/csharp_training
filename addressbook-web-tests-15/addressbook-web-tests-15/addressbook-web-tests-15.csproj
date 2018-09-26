@@ -65,7 +65,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="TestSuiteFixture.cs" />
+    <Compile Include="AuthTestBase.cs" />
+    <Compile Include="LoginTests.cs" />
     <Compile Include="Tests\ContactModificationTests.cs" />
     <Compile Include="Tests\ContactRemovalTest.cs" />
     <Compile Include="Tests\GroupModificationTests.cs" />
