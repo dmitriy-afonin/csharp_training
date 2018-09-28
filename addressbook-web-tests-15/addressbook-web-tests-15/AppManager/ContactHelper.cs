@@ -61,7 +61,7 @@ namespace WebAddressbookTests
         {
             Type(By.Name("firstname"), contact.Firstname);
             Type(By.Name("middlename"), contact.Middlename);
-            Type(By.Name("lastname"), contact.Lastname);
+            Type(By.Name("lastname"), contact.Lastname);           
             Type(By.Name("title"), contact.Title);
             Type(By.Name("company"), contact.Company);
             Type(By.Name("address"), contact.Address);
@@ -78,6 +78,7 @@ namespace WebAddressbookTests
             Type(By.Name("address2"), contact.Address2);
             Type(By.Name("phone2"), contact.Phone2);
             Type(By.Name("notes"), contact.Notes);
+            
             return this;
         }
 
@@ -89,7 +90,7 @@ namespace WebAddressbookTests
 
         public ContactHelper SelectContact(int index)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
             return this;
         }
 
@@ -115,6 +116,22 @@ namespace WebAddressbookTests
         private bool IsContactExist()
         {
             return IsElementPresent(By.Name("selected[]"));
+        }
+
+        public List<ContactData> GetContactList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            manager.Navigator.OpenHomePage();
+            ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+            foreach (IWebElement element in elements)
+            {
+                IList<IWebElement> cells = element.FindElements(By.TagName("td"));
+                IWebElement lastname = cells[1];
+                IWebElement firstname = cells[2];
+                ContactData contact = new ContactData(firstname.Text, lastname.Text);
+                contacts.Add(contact);
+            }
+            return contacts;
         }
     }
 }
