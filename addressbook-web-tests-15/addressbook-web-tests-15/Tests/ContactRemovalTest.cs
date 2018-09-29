@@ -16,6 +16,14 @@ namespace WebAddressbookTests
             ContactData contact = new ContactData("FFF", "LLL");
             contact.Middlename = "MMM";
 
+            app.Navigator.OpenHomePage();
+
+            if (!app.Contacts.IsContactExist())
+            {
+                app.Contacts.Create(contact);
+                app.Navigator.OpenHomePage();
+            }
+
             List<ContactData> oldContacts = app.Contacts.GetContactList();
 
             app.Contacts.Remove(contact, 0);

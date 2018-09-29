@@ -17,6 +17,13 @@ namespace WebAddressbookTests
             group.Header = "sss";
             group.Footer = "ddd";
 
+            app.Navigator.GoToGroupsPage();
+
+            if (!app.Groups.IsGroupExist())
+            {
+                app.Groups.Create(group);
+            }
+
             List<GroupData> oldGroups = app.Groups.GetGroupList();
             app.Groups.Remove(group, 0);
             List<GroupData> newGroups = app.Groups.GetGroupList();

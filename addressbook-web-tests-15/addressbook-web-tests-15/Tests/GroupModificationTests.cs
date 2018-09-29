@@ -21,6 +21,13 @@ namespace WebAddressbookTests
             newData.Header = "ttt";
             newData.Footer = "qqq";
 
+            app.Navigator.GoToGroupsPage();
+
+            if (!app.Groups.IsGroupExist())
+            {
+                app.Groups.Create(group);
+            }
+
             List<GroupData> oldGroups = app.Groups.GetGroupList();
 
             app.Groups.Modify(group, 0, newData);

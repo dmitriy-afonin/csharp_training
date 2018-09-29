@@ -29,11 +29,6 @@ namespace WebAddressbookTests
 
         public GroupHelper Modify(GroupData group, int v, GroupData newData)
         {
-            manager.Navigator.GoToGroupsPage();
-            if (!IsGroupExist())
-            {
-                Create(group);
-            }
             SelectGroup(v);
             InitGroupModification();
             FillGroupForm(newData);
@@ -44,11 +39,6 @@ namespace WebAddressbookTests
 
         public GroupHelper Remove(GroupData group, int v)
         {
-            manager.Navigator.GoToGroupsPage();
-            if (!IsGroupExist())
-            {
-                Create(group);
-            }
             SelectGroup(v);
             RemoveGroup();
             ReturnToGroupPage();
