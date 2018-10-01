@@ -18,9 +18,9 @@ namespace WebAddressbookTests
             contact.Title = "TT";
             contact.Company = "Com";
             contact.Address = "Addr";
-            contact.Home = "HH";
-            contact.Mobile = "MM";
-            contact.Work = "WW";
+            contact.HomePhone = "HH";
+            contact.MobilePhone = "MM";
+            contact.WorkPhone = "WW";
             contact.Fax = "FF";
             contact.Email = "E1";
             contact.Email2 = "E2";
@@ -29,7 +29,7 @@ namespace WebAddressbookTests
             contact.Byear = "BB";
             contact.Ayear = "AA";
             contact.Address2 = "Addr2";
-            contact.Phone2 = "Ph2";
+            contact.SecondaryPhone = "Ph2";
             contact.Notes = "NN";
             
             List<ContactData> oldContacts = app.Contacts.GetContactList();

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
+using System.Text.RegularExpressions;
 
 namespace WebAddressbookTests
 {
@@ -24,6 +25,51 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactData GetContactInformationFromTable(int index)
+        {
+            manager.Navigator.OpenHomePage();
+            IList<IWebElement> cells = driver.FindElements(By.Name("entry"))[index]
+               .FindElements(By.TagName("td"));
+            string lastName = cells[1].Text;
+            string firstName = cells[2].Text;
+            string address = cells[3].Text;
+            string allPhones = cells[5].Text;
+            return new ContactData(firstName, lastName)
+            {
+                Address = address,
+                AllPhones = allPhones,
+            };
+        }
+
+        public ContactData GetContactInformationFromEditForm(int index)
+        {
+            manager.Navigator.OpenHomePage();
+            InitContactModification(index);
+            string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
+            string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
+            string address = driver.FindElement(By.Name("address")).GetAttribute("value");
+            string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
+            string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
+            string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
+            string secondaryPhone = driver.FindElement(By.Name("phone2")).GetAttribute("value");
+            return new ContactData(firstName, lastName)
+            {
+                Address = address,
+                HomePhone = homePhone,
+                MobilePhone = mobilePhone,
+                WorkPhone = workPhone,
+                SecondaryPhone = secondaryPhone
+            };
+        }
+
+        public int GetNumberOfSearchResults()
+        {
+            manager.Navigator.OpenHomePage();
+            string text = driver.FindElement(By.TagName("label")).Text;
+            Match m = new Regex(@"\d+").Match(text);
+            return Int32.Parse(m.Value);
+        }
+
         public ContactHelper Modify(ContactData contact, int v, ContactData newData)
         {
             InitContactModification(v);
@@ -31,14 +77,14 @@ namespace WebAddressbookTests
             SubmitContactModification();
             return this;
         }
-        
+
         public ContactHelper Remove(ContactData contact, int v)
         {
             SelectContact(v);
             RemoveContact();
             return this;
         }
-        
+
         public ContactHelper InitNewContactCreation()
         {
             driver.FindElement(By.LinkText("add new")).Click();
@@ -49,13 +95,13 @@ namespace WebAddressbookTests
         {
             Type(By.Name("firstname"), contact.Firstname);
             Type(By.Name("middlename"), contact.Middlename);
-            Type(By.Name("lastname"), contact.Lastname);           
+            Type(By.Name("lastname"), contact.Lastname);
             Type(By.Name("title"), contact.Title);
             Type(By.Name("company"), contact.Company);
             Type(By.Name("address"), contact.Address);
-            Type(By.Name("home"), contact.Home);
-            Type(By.Name("mobile"), contact.Mobile);
-            Type(By.Name("work"), contact.Work);
+            Type(By.Name("home"), contact.HomePhone);
+            Type(By.Name("mobile"), contact.MobilePhone);
+            Type(By.Name("work"), contact.WorkPhone);
             Type(By.Name("fax"), contact.Fax);
             Type(By.Name("email"), contact.Email);
             Type(By.Name("email2"), contact.Email2);
@@ -64,9 +110,9 @@ namespace WebAddressbookTests
             Type(By.Name("byear"), contact.Byear);
             Type(By.Name("ayear"), contact.Ayear);
             Type(By.Name("address2"), contact.Address2);
-            Type(By.Name("phone2"), contact.Phone2);
+            Type(By.Name("phone2"), contact.SecondaryPhone);
             Type(By.Name("notes"), contact.Notes);
-            
+
             return this;
         }
 
@@ -80,7 +126,7 @@ namespace WebAddressbookTests
 
         public ContactHelper SelectContact(int index)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
             return this;
         }
 
@@ -93,9 +139,11 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper InitContactModification(int n)
+        public ContactHelper InitContactModification(int index)
         {
-            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (n+1) + "]")).Click();
+            driver.FindElements(By.Name("entry"))[index]
+                .FindElements(By.TagName("td"))[7]
+                .FindElement(By.TagName("a")).Click();
             return this;
         }
 
@@ -139,6 +187,13 @@ namespace WebAddressbookTests
         public int GetContactCount()
         {
             return driver.FindElements(By.Name("entry")).Count;
+        }
+
+        public ContactHelper FillSearchField(string searchElement)
+        {
+            driver.FindElement(By.Name("searchstring")).Click();
+            driver.FindElement(By.Name("searchstring")).SendKeys(searchElement);
+            return this;
         }
     }
 }
