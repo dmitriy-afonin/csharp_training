@@ -11,11 +11,16 @@ namespace WebAddressbookTests
     {
 
         private string allPhones;
+        private string contactInformationDetails;
 
         public ContactData(string firstname, string lastname)
         {
             Firstname = firstname;
             Lastname = lastname;
+        }
+
+        public ContactData()
+        {
         }
 
         public bool Equals(ContactData other)
@@ -125,5 +130,24 @@ namespace WebAddressbookTests
         public string Notes { get; set; }
 
         public string Id { get; set; }
+
+        public string ContactInformationDetails
+        {
+            get
+            {
+                if (contactInformationDetails != null)
+                {
+                    return contactInformationDetails;
+                }
+                else
+                {
+                    return (((Firstname + Lastname + Address + HomePhone + MobilePhone + WorkPhone).Trim())).Replace(" ", "");
+                }
+            }
+            set
+            {
+                contactInformationDetails = value;
+            }
+        }
     }
 }

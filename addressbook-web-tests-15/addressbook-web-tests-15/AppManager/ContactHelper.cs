@@ -41,6 +41,22 @@ namespace WebAddressbookTests
             };
         }
 
+        internal ContactData GetContactInformationFromDetails(int index)
+        {
+            manager.Navigator.OpenHomePage();
+            InitContactDetails(index);
+            string contactInformationDetails = driver.FindElement(By.Id("content"))
+                .Text.Replace(" ", "")
+                .Replace("\r\n", "")
+                .Replace("H:", "")
+                .Replace("M:", "")
+                .Replace("W:", "");
+            return new ContactData()
+            {
+                ContactInformationDetails = contactInformationDetails
+            };
+        }
+
         public ContactData GetContactInformationFromEditForm(int index)
         {
             manager.Navigator.OpenHomePage();
@@ -94,14 +110,15 @@ namespace WebAddressbookTests
         public ContactHelper FillContactForm(ContactData contact)
         {
             Type(By.Name("firstname"), contact.Firstname);
-            Type(By.Name("middlename"), contact.Middlename);
+            //Type(By.Name("middlename"), contact.Middlename);
             Type(By.Name("lastname"), contact.Lastname);
-            Type(By.Name("title"), contact.Title);
-            Type(By.Name("company"), contact.Company);
+            //Type(By.Name("title"), contact.Title);
+            //Type(By.Name("company"), contact.Company);
             Type(By.Name("address"), contact.Address);
             Type(By.Name("home"), contact.HomePhone);
             Type(By.Name("mobile"), contact.MobilePhone);
             Type(By.Name("work"), contact.WorkPhone);
+            /*
             Type(By.Name("fax"), contact.Fax);
             Type(By.Name("email"), contact.Email);
             Type(By.Name("email2"), contact.Email2);
@@ -112,7 +129,7 @@ namespace WebAddressbookTests
             Type(By.Name("address2"), contact.Address2);
             Type(By.Name("phone2"), contact.SecondaryPhone);
             Type(By.Name("notes"), contact.Notes);
-
+            */
             return this;
         }
 
@@ -152,6 +169,14 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("update")).Click();
             contactCache = null;
             manager.Navigator.OpenHomePage();
+            return this;
+        }
+
+        public ContactHelper InitContactDetails(int index)
+        {
+            driver.FindElements(By.Name("entry"))[index]
+                .FindElements(By.TagName("td"))[6]
+                .FindElement(By.TagName("a")).Click();
             return this;
         }
 
