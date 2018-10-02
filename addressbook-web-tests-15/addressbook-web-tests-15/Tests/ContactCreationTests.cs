@@ -10,47 +10,25 @@ namespace WebAddressbookTests
     [TestFixture]
     public class ContactCreationTests : AuthTestBase
     {
-        [Test]
-        public void ContactCreationTest()
+        public static IEnumerable<ContactData> RandomContactDataProvider()
         {
-            ContactData contact = new ContactData("FN", "LN");
-            contact.Middlename = "MN";
-            contact.Title = "TT";
-            contact.Company = "Com";
-            contact.Address = "Addr";
-            contact.HomePhone = "HH";
-            contact.MobilePhone = "MM";
-            contact.WorkPhone = "WW";
-            contact.Fax = "FF";
-            contact.Email = "E1";
-            contact.Email2 = "E2";
-            contact.Email3 = "E3";
-            contact.Homepage = "HP";
-            contact.Byear = "BB";
-            contact.Ayear = "AA";
-            contact.Address2 = "Addr2";
-            contact.SecondaryPhone = "Ph2";
-            contact.Notes = "NN";
-            
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
-
-            app.Contacts.Create(contact);
-
-            Assert.AreEqual(oldContacts.Count + 1, app.Contacts.GetContactCount());
-
-            List<ContactData> newContacts = app.Contacts.GetContactList();
-            oldContacts.Add(contact);
-            oldContacts.Sort();
-            newContacts.Sort();
-            Assert.AreEqual(oldContacts, newContacts);
+            List<ContactData> contacts = new List<ContactData>();
+            for (int i = 0; i < 5; i++)
+            {
+                contacts.Add(new ContactData(GenerateRandomString(15), GenerateRandomString(15))
+                {
+                    Address = GenerateRandomString(30),
+                    MobilePhone = GenerateRandomString(10),
+                    HomePhone = GenerateRandomString(10),
+                    WorkPhone = GenerateRandomString(10)
+                });
+            }
+            return contacts;
         }
 
-        [Test]
-        public void EmptyContactCreationTest()
+        [Test, TestCaseSource("RandomContactDataProvider")]
+        public void ContactCreationTest(ContactData contact)
         {
-            ContactData contact = new ContactData("", "");
-            contact.Middlename = "";
-
             List<ContactData> oldContacts = app.Contacts.GetContactList();
 
             app.Contacts.Create(contact);
