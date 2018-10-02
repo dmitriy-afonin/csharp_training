@@ -142,7 +142,14 @@ namespace WebAddressbookTests
                 }
                 else
                 {
-                    return (((Firstname + Lastname + Address + HomePhone + MobilePhone + WorkPhone).Trim())).Replace(" ", "");
+                    return (
+                        ((Firstname + " " + Lastname + "\r\n" 
+                        + Address + "\r\n"
+                        + "\r\n"
+                        + "H: " + HomePhone + "\r\n"
+                        + "M: " + MobilePhone + "\r\n"
+                        + "W: " + WorkPhone)
+                        .Trim()));
                 }
             }
             set

@@ -45,12 +45,7 @@ namespace WebAddressbookTests
         {
             manager.Navigator.OpenHomePage();
             InitContactDetails(index);
-            string contactInformationDetails = driver.FindElement(By.Id("content"))
-                .Text.Replace(" ", "")
-                .Replace("\r\n", "")
-                .Replace("H:", "")
-                .Replace("M:", "")
-                .Replace("W:", "");
+            string contactInformationDetails = driver.FindElement(By.Id("content")).Text;
             return new ContactData()
             {
                 ContactInformationDetails = contactInformationDetails

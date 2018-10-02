@@ -30,6 +30,8 @@ namespace WebAddressbookTests
             
             // verification
             Assert.AreEqual(fromDetails.ContactInformationDetails, fromForm.ContactInformationDetails);
+            //System.Console.Out.Write(fromDetails.ContactInformationDetails);
+            //System.Console.Out.Write(fromForm.ContactInformationDetails);
         }
     }
 }
