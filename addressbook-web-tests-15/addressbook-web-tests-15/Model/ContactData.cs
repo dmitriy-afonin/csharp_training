@@ -173,19 +173,80 @@ namespace WebAddressbookTests
                 else
                 {
                     return (
-                        ((Firstname + " " + Lastname + "\r\n" 
-                        + Address + "\r\n"
-                        + "\r\n"
-                        + "H: " + HomePhone + "\r\n"
-                        + "M: " + MobilePhone + "\r\n"
-                        + "W: " + WorkPhone)
-                        .Trim()));
+                        EndStringInsert(EndStringInsert(ContactInfoList(Firstname, Lastname, Address)))
+                        + EndStringInsert(EndStringInsert(GetPhoneList(HomePhone, MobilePhone, WorkPhone)))
+                        + EndStringInsert(EndStringInsert(GetEmailList(Email, Email2, Email3)))).Trim();
                 }
             }
             set
             {
                 contactInformationDetails = value;
             }
+        }
+
+        private string EndStringInsert(string entry)
+        {
+            if (entry == null || entry == "")
+            {
+                return "";
+            }
+            return entry + "\r\n";
+        }
+
+        private string GetNameFull(string firstname, string lastname)
+        {
+            string bufer = "";
+            if (firstname != null && firstname != "")
+            {
+                bufer = bufer + Firstname + " ";
+            }
+            if (lastname != null && lastname != "")
+            {
+                bufer = bufer + Lastname + " ";
+            }
+            return bufer.Trim();
+        }
+
+        private string GetPhoneList(string homePhone, string mobilePhone, string workPhone)
+        {
+            string bufer = "";
+            if (homePhone != null && homePhone != "")
+            {
+                bufer = bufer + "H: " + EndStringInsert(HomePhone);
+            }
+            if (mobilePhone != null && mobilePhone != "")
+            {
+                bufer = bufer + "M: " + EndStringInsert(MobilePhone);
+            }
+            if (workPhone != null && workPhone != "")
+            {
+                bufer = bufer + "W: " + EndStringInsert(WorkPhone);
+            }
+            return bufer.Trim();
+        }
+
+        private string GetEmailList(string email, string email2, string email3)
+        {
+            string bufer = "";
+            if (email != null && email != "")
+            {
+                bufer = bufer + EndStringInsert(email);
+            }
+            if (email2 != null && email2 != "")
+            {
+                bufer = bufer + EndStringInsert(email2);
+            }
+            if (email3 != null && email3 != "")
+            {
+                bufer = bufer + EndStringInsert(email3);
+            }
+            return bufer.Trim();
+        }
+
+        private string ContactInfoList(string firstname, string lastname, string address)
+        {
+            return EndStringInsert(GetNameFull(firstname, lastname))
+                + EndStringInsert(address).Trim();
         }
     }
 }
