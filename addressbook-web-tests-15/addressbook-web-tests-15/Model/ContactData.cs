@@ -11,6 +11,7 @@ namespace WebAddressbookTests
     {
 
         private string allPhones;
+        private string allEmails;
         private string contactInformationDetails;
 
         public ContactData(string firstname, string lastname)
@@ -48,6 +49,7 @@ namespace WebAddressbookTests
         public override string ToString()
         {
             return "firstname=" + Firstname + "\nlastname=" + Lastname + "\naddress=" + Address +
+                "\nmemail= " + Email + "\nhemail2= " + Email2 + "\nwemail3= " + Email3 +
                 "\nmphone= " + MobilePhone + "\nhphone= " + HomePhone + "\nwphone= " + WorkPhone;
         }
 
@@ -117,6 +119,34 @@ namespace WebAddressbookTests
         public string Email2 { get; set; }
 
         public string Email3 { get; set; }
+
+        public string AllEmails
+        {
+            get
+            {
+                if (allEmails != null)
+                {
+                    return allEmails;
+                }
+                else
+                {
+                    return (CleanUpEmails(Email) + CleanUpEmails(Email2) + CleanUpEmails(Email3)).Trim();
+                }
+            }
+            set
+            {
+                allEmails = value;
+            }
+        }
+
+        private string CleanUpEmails(string email)
+        {
+            if (email == null || email == "")
+            {
+                return "";
+            }
+            return email + "\r\n";
+        }
 
         public string Homepage { get; set; }
 

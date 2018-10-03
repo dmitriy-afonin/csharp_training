@@ -33,10 +33,12 @@ namespace WebAddressbookTests
             string lastName = cells[1].Text;
             string firstName = cells[2].Text;
             string address = cells[3].Text;
+            string allEmails = cells[4].Text;
             string allPhones = cells[5].Text;
             return new ContactData(firstName, lastName)
             {
                 Address = address,
+                AllEmails = allEmails,
                 AllPhones = allPhones,
             };
         }
@@ -63,13 +65,19 @@ namespace WebAddressbookTests
             string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
             string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
             string secondaryPhone = driver.FindElement(By.Name("phone2")).GetAttribute("value");
+            string email = driver.FindElement(By.Name("email")).GetAttribute("value");
+            string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
+            string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
             return new ContactData(firstName, lastName)
             {
                 Address = address,
                 HomePhone = homePhone,
                 MobilePhone = mobilePhone,
                 WorkPhone = workPhone,
-                SecondaryPhone = secondaryPhone
+                SecondaryPhone = secondaryPhone,
+                Email = email,
+                Email2 = email2,
+                Email3 = email3,
             };
         }
 
@@ -113,11 +121,11 @@ namespace WebAddressbookTests
             Type(By.Name("home"), contact.HomePhone);
             Type(By.Name("mobile"), contact.MobilePhone);
             Type(By.Name("work"), contact.WorkPhone);
-            /*
-            Type(By.Name("fax"), contact.Fax);
+            //Type(By.Name("fax"), contact.Fax);
             Type(By.Name("email"), contact.Email);
             Type(By.Name("email2"), contact.Email2);
             Type(By.Name("email3"), contact.Email3);
+            /*
             Type(By.Name("homepage"), contact.Homepage);
             Type(By.Name("byear"), contact.Byear);
             Type(By.Name("ayear"), contact.Ayear);
