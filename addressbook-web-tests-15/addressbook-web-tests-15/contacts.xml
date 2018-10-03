@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfContactData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ContactData>
+    <Firstname>W%WCEY</Firstname>
+    <Lastname>;YFL!L</Lastname>
+    <Address>,)^-B_DEQSR.M)!-</Address>
+    <HomePhone>A</HomePhone>
+    <MobilePhone />
+    <WorkPhone>7</WorkPhone>
+    <AllPhones>A
+7</AllPhones>
+    <ContactInformationDetails>W%WCEY ;YFL!L
+,)^-B_DEQSR.M)!-
+
+H: A
+M: 
+W: 7</ContactInformationDetails>
+  </ContactData>
+  <ContactData>
+    <Firstname>B',#</Firstname>
+    <Lastname />
+    <Address />
+    <HomePhone>J0K/78*</HomePhone>
+    <MobilePhone />
+    <WorkPhone />
+    <AllPhones>J0K/78*</AllPhones>
+    <ContactInformationDetails>B',# 
+
+
+H: J0K/78*
+M: 
+W:</ContactInformationDetails>
+  </ContactData>
+</ArrayOfContactData>
