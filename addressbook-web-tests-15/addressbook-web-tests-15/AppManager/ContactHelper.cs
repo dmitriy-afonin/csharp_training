@@ -254,5 +254,25 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.Name("add")).Click();
         }
+
+        public void RemoveContactFromGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigator.OpenHomePage();
+            SelectGroupToRemove(group.Name);
+            SelectContactById(contact.Id);
+            CommitRemovingContactFromGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }
+
+        public void SelectGroupToRemove(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText(name);
+        }
+
+        private void CommitRemovingContactFromGroup()
+        {
+            driver.FindElement(By.Name("remove")).Click();
+        }
     }
 }
